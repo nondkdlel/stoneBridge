@@ -4,11 +4,11 @@ var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userA
 $(function() {
     $("#headers").load("common/header.html");
     $("#footers").load("common/footer.html");
-})
+});
 
 window.onload = function() {
 
-    var modeSelect = document.getElementById("modeSelect");
+  var modeSelect = document.getElementById("modeSelect");
     if (modeSelect) {
         modeSelect.addEventListener("click", () => {
             const html = document.documentElement;
@@ -69,40 +69,34 @@ window.onload = function() {
 
 
 
+    // 21/12/30 line 75 searchBox 수정
     $(".user-setting .cateBox .placeholder").click(function() {
         $(".user-setting .cateBox").toggleClass("on");
-
-        if ($(".user-setting .cateBox").hasClass("on")) {
-            $(".user-setting .cateBox .placeholder").find("i").text("arrow_drop_up");
-        } else {
-            $(".user-setting .cateBox .placeholder").find("i").text("arrow_drop_down");
-        }
 
         $(".user-setting .cateBox .depth01").toggleClass("slide");
         $(".user-setting .cateBox .depth02").removeClass("slide");
     });
 
-    $(".user-setting .cateBox .depth01>li>p").click(function() {
+    $(".user-setting .cateBox .depth01>li .cateHead").click(function () {
         $(this).next().toggleClass("slide");
+        $(this).find(".arr-indi").toggleClass("on");
     });
 
-    $(".user-setting .cateBox .depth01 .menu01").click(function() {
-
-        if ($(".user-setting .cateBox .depth01 .menu01").children().next().hasClass("slide")) {
-            $(this).children().children().css("border-bottom", "none");
+    $(".user-setting .cateBox .depth01 .menu01 .cateHead").click(function () {
+        if ($(".user-setting .cateBox .depth01 .menu01").find(".depth02").hasClass("slide")) {
+            $(this).find("a").css("border", "none");
         } else {
-            $(this).children().children().css("border-bottom", "1px solid #fff");
+            $(this).find("a").css("border-bottom", "1px solid #fff");
         }
-
     });
 
+    
     $(document).mouseup(function(e) {
         var sel_hide = $(".cateBox");
         if (sel_hide.has(e.target).length === 0) {
             sel_hide.find(".depth01").removeClass("slide");
             $(".user-setting .cateBox .depth02").removeClass("slide");
             $(".user-setting .cateBox").removeClass("on");
-            $(".user-setting .cateBox .placeholder").find("i").text("arrow_drop_down");
         }
     });
 
@@ -156,7 +150,6 @@ window.onload = function() {
     });
 
     // screen mode
-
     $(document).on("click", "#open-menu .screen-mode", function() {
         $(this).toggleClass("change");
         if ($("#open-menu .screen-mode").hasClass("change")) {
